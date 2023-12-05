@@ -1,4 +1,4 @@
-FROM golang:latest AS builder
+FROM registry.docker-cn.com/golang:latest AS builder
 
 # 启用go module
 ENV GO111MODULE=on \
@@ -12,7 +12,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go
 
 # 运行阶段指定scratch作为基础镜像
-FROM scratch AS runner
+FROM registry.docker-cn.com/scratch AS runner
 
 WORKDIR /app
 
