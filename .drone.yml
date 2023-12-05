@@ -1,0 +1,34 @@
+kind: pipeline
+type: docker
+name: default
+
+pipeline:
+  test:
+    image: golang
+    commands:
+      - go test
+  
+  build:
+    image: golang
+    commands:
+      - go build
+  
+  publish:
+    image: plugins/docker
+    repo: cc_server/backend
+    tags: [ 1, 1.00, latest ]
+    registry: ccr.ccs.tencentyun.com
+    username: 100020182378
+    password: 5201314123Huang!
+
+  deploy:
+    image: appleboy/drone-ssh
+    host:
+      - 22
+    username: root
+    password: 5201314123Huang!
+    command_timeout: 60
+    script:
+      - docker pull ccr.ccs.tencentyun.com/cc_server/backend:latest
+      - docker rm -f cc_server_backend || true # 这里这样是因为如果不存在docker-demo，rm会报错
+      - docker run -itd -p 8065:8065 --name cc_server_backend ccr.ccs.tencentyun.com/cc_server/backend
