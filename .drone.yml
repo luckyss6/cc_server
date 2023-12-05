@@ -22,7 +22,7 @@ pipeline:
       username: 100020182378
       password: 5201314123Huang!
       registry: ccr.ccs.tencentyun.com
-      repo: cc_server/backend
+      repo: ccr.ccs.tencentyun.com/cc_server/backend
       tags: 
        - 1.0
        - latest
