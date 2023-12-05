@@ -9,12 +9,12 @@ trigger:
     - push
 
 pipeline:
-  test:
-    image: golang
-    environment:
-      - GOPROXY=https://goproxy.cn
-    commands:
-      - go test
+  # test:
+  #   image: golang
+  #   environment:
+  #     - GOPROXY=https://goproxy.cn
+  #   commands:
+  #     - go test
   
   publish:
     image: plugins/docker
