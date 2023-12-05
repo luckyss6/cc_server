@@ -23,10 +23,11 @@ pipeline:
       password: 5201314123Huang!
       registry: ccr.ccs.tencentyun.com
       repo: ccr.ccs.tencentyun.com/cc_server-ci/backend
-      tags: [ 1, 1.00, latest ]
+      tags: latest
       dockerfile: ./Dockerfile
 
   deploy:
+    depends_on: [ publish ]
     image: appleboy/drone-ssh
     host:
       - 22
