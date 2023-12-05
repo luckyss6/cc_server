@@ -23,7 +23,7 @@ pipeline:
       password: 5201314123Huang!
       registry: ccr.ccs.tencentyun.com
       repo: ccr.ccs.tencentyun.com/cc_server-ci/backend
-      tags: latest
+      tags: ${DRONE_TAG}
       dockerfile: ./Dockerfile
 
   deploy:
