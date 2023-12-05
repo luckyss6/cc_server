@@ -1,4 +1,4 @@
-FROM golang:latest AS builder
+FROM golang AS builder
 
 # 启用go module
 ENV GO111MODULE=on \
