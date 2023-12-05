@@ -2,24 +2,29 @@ kind: pipeline
 type: docker
 name: default
 
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
 pipeline:
   test:
     image: golang
+    environment:
+      - GOPROXY=https://goproxy.cn
     commands:
       - go test
   
-  build:
-    image: golang
-    commands:
-      - go build
-  
   publish:
     image: plugins/docker
-    repo: cc_server/backend
-    tags: [ 1, 1.00, latest ]
-    registry: ccr.ccs.tencentyun.com
-    username: 100020182378
-    password: 5201314123Huang!
+    settings:
+      username: 100020182378
+      password: 5201314123Huang!
+      registry: ccr.ccs.tencentyun.com
+      repo: ccr.ccs.tencentyun.com/cc_server-ci/backend
+      tags: [ 1, 1.00, latest ]
+      dockerfile: ./Dockerfile
 
   deploy:
     image: appleboy/drone-ssh
