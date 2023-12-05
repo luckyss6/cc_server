@@ -1,4 +1,4 @@
-FROM golang AS builder
+FROM golang:alpine AS builder
 
 # 启用go module
 ENV GO111MODULE=on \
