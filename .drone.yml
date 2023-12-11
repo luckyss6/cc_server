@@ -38,7 +38,7 @@ steps:
       username: root
       password: 5201314123Huang!
       port: 22
-      command_timeout: 60ms
+      command_timeout: 5m
       script:
       - docker pull ccr.ccs.tencentyun.com/cc_server/backend:latest
       - docker rm -f cc_server_backend || true # 这里这样是因为如果不存在docker-demo，rm会报错
