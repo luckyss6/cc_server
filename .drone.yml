@@ -25,7 +25,7 @@ pipeline:
       registry: ccr.ccs.tencentyun.com
       repo: ccr.ccs.tencentyun.com/cc_server/backend:latest
       insecure: true
-
+# test
   deploy:
     depends_on: [ publish ]
     image: appleboy/drone-ssh
