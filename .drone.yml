@@ -9,7 +9,7 @@ steps:
       username: 100020182378
       password: 5201314123Huang!
       registry: ccr.ccs.tencentyun.com
-      repo: ccr.ccs.tencentyun.com/drone-ci/drone-ci
+      repo: ccr.ccs.tencentyun.com/cc_server/backend
       tags: latest
       dockerfile: ./Dockerfile
 
