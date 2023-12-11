@@ -1,40 +1,45 @@
 kind: pipeline
 type: docker
-name: default
+name: build
 
-trigger:
-  branch:
-    - master
-  event:
-    - push
-
-pipeline:
-  # test:
-  #   image: golang
-  #   environment:
-  #     - GOPROXY=https://goproxy.cn
-  #   commands:
-  #     - go test
-  
-  publish:
+steps:
+  - name: push
     image: plugins/docker
     settings:
       username: 100020182378
       password: 5201314123Huang!
-      dockerfile: ./Dockerfile
       registry: ccr.ccs.tencentyun.com
-      repo: ccr.ccs.tencentyun.com/cc_server/backend:latest
-      insecure: true
-# test
-  deploy:
-    depends_on: [ publish ]
+      repo: ccr.ccs.tencentyun.com/drone-ci/drone-ci
+      tags: latest
+      dockerfile: ./Dockerfile
+
+trigger:
+  branch:
+  - main
+  event: 
+  - push
+
+--- 
+
+kind: pipeline
+type: docker
+name: deploy
+
+clone:
+  disable: true
+
+depends_on:
+  - build
+steps:
+  - name: deploy
     image: appleboy/drone-ssh
-    host:
-      - 22
-    username: root
-    password: 5201314123Huang!
-    command_timeout: 60
-    script:
+    settings:
+      host: 43.136.64.220
+      username: root
+      password: 5201314123Huang!
+      port: 22
+      command_timeout: 60ms
+      script:
       - docker pull ccr.ccs.tencentyun.com/cc_server/backend:latest
       - docker rm -f cc_server_backend || true # 这里这样是因为如果不存在docker-demo，rm会报错
       - docker run -itd -p 8065:8065 --name cc_server_backend ccr.ccs.tencentyun.com/cc_server/backend
