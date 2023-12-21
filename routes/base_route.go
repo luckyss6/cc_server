@@ -11,5 +11,6 @@ func InitRoute() *gin.Engine {
 	})
 
 	UserRoute(r)
+	DockerRoute(r)
 	return r
 }
