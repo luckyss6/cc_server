@@ -1,6 +1,0 @@
-mysql:
-  username: root
-  password: 5201314123Huang!
-  database: cc_server
-  host: 127.0.0.1
-  port: 3306
