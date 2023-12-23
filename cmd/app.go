@@ -7,17 +7,23 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/luckyss6/cc_server/pkg/server"
+	"github.com/luckyss6/cc_server/pkg/config"
+	"github.com/luckyss6/cc_server/pkg/router"
+	"github.com/luckyss6/cc_server/pkg/storage"
 )
 
 func Run() {
-	// config.InitConfig()
-	// slog.Info("init config success")
-	// db.InitDB()
-	// slog.Info("init db success")
+	// init config
+	config.InitConfig()
+	slog.Info("init config success")
 
-	app := server.InitServer()
+	// init db
+	storage.InitDB()
 
+	slog.Info("init db success")
+
+	// init server
+	app := router.InitServer()
 	go func() {
 		slog.Info("server listen on :3000")
 		if err := app.Listen(":3000"); err != nil {

@@ -1,12 +1,13 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
 
-var Cfg *Config
+var Cfg = new(Config)
 
 type Config struct {
 	MysqlConfig *Mysql `yaml:"mysql"`
@@ -18,6 +19,7 @@ type Mysql struct {
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
 	DBName   string `yaml:"dbname"`
+	Debug    bool   `yaml:"debug"`
 }
 
 func InitConfig() {
@@ -29,12 +31,11 @@ func InitConfig() {
 
 	data, err := os.ReadFile(configPath)
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("read config file error: %s", err.Error()))
 	}
 
-	Cfg = new(Config)
 	err = yaml.Unmarshal(data, Cfg)
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("unmarshal config error: %s", err.Error()))
 	}
 }
