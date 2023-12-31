@@ -23,8 +23,7 @@ type Mysql struct {
 }
 
 func InitConfig() {
-	var configPath string
-	configPath = os.Getenv("CC_SERVER_CONFIG")
+	configPath := os.Getenv("CC_SERVER_CONFIG")
 	if len(configPath) == 0 {
 		configPath = "/config/config.yaml"
 	}

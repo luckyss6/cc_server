@@ -10,6 +10,7 @@ const (
 	LoginErrCode
 	DBErrCode
 	TokenErrCode
+	DockerErrCode
 )
 
 const (
@@ -17,6 +18,7 @@ const (
 	DBErrMsg           = "数据库错误"
 	LoginErrMsg        = "用户名或密码错误"
 	TokenErrMsg        = "token错误"
+	DockerErrMsg       = "docker错误"
 )
 
 type Response struct {

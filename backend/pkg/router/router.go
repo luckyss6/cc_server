@@ -12,6 +12,7 @@ func InitServer() *fiber.App {
 		return c.SendString("ok")
 	})
 	UserRouter(app)
+	DockerRouter(app)
 	return app
 }
 
@@ -24,5 +25,23 @@ func UserRouter(app *fiber.App) {
 		user.Get("/ok", middleware.AuthRequired(), func(c *fiber.Ctx) error {
 			return c.SendString("ok")
 		})
+	}
+}
+
+func DockerRouter(app *fiber.App) {
+	dockerHandler := handler.NewDockerHandler()
+	docker := app.Group("/docker")
+	{
+		docker.Get("/image/list", dockerHandler.GetImageList)
+		docker.Get("/container/list", dockerHandler.GetContainerList)
+		docker.Get("/container/:id", dockerHandler.GetContainerInfo)
+	}
+}
+
+func MachineRouter(app *fiber.App) {
+	machineHandler := handler.NewMachineHandler()
+	machine := app.Group("/machine")
+	{
+		machine.Get("/info", machineHandler.GetMachineInfo)
 	}
 }
